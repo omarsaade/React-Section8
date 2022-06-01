@@ -21,7 +21,8 @@ const AddUser = (props) => {
             return;//return statement finish the function excution,,yaane malah yeshtegel shi men baado
         }
 
-        console.log(enteredUsername, enteredAge);
+        // console.log(enteredUsername, enteredAge);
+        props.onAddUser(enteredUsername, enteredAge);
         setEnteredUsername('');
         setEnteredAge('');
     };
