@@ -13,8 +13,8 @@ const App = () => {
             return [
                 ...prevUsersList,
                 { name: uName, age: uAge, id: Math.random().toString() },
-            ]
-        })
+            ];
+        });
     }
 
 
