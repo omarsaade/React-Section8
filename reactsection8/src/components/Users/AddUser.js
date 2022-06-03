@@ -6,61 +6,47 @@ import ErrorModal from '../UI/ErrorModal';
 import Wrapper from '../Helpers/Wrapper';
 
 const AddUser = (props) => {
-    const nameInputRef = useRef();//its only usable inside of our functional component
-    const ageInputRef = useRef();//undefined iza fadye ()
-
     //it retun an array of object with a "cuurent " property
-
-    const [enteredUsername, setEnteredUsername] = useState("");
-    const [enteredAge, setEnteredAge] = useState("");
+    //for reading value , ref is propably better.
+    const nameInputRef = useRef();//its only usable inside of our functional component
+    const ageInputRef = useRef();//undefined iza fadye () 
     const [error, setError] = useState();
+
+
+
+
 
 
 
     const addUserHandler = (event) => {
         event.preventDefault();
-
-        if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+        const enteredName = nameInputRef.current.value;
+        const enteredUserAge = ageInputRef.current.value;
+        // console.log(enteredName);
+        // console.log(enteredUserAge);
+        if (enteredName.trim().length === 0 || enteredUserAge.trim().length === 0) {
             setError({
                 title: 'Invalid Input',
                 message: 'please enter a valid name and age (non-empty values).'
             });
-
             return;
         }
 
-        if (+enteredAge < 1) {
+
+        if (+enteredUserAge < 1) {
             setError({
                 title: 'Invalid age',
                 message: 'please enter a valid age (>0).'
-
             });
-
-
             return;//return statement finish the function excution,,yaane malah yeshtegel shi men baado
         }
 
-        // console.log(enteredUsername, enteredAge);
-        props.onAddUser(enteredUsername, enteredAge);
-        setEnteredUsername('');
-        setEnteredAge('');
+
+        props.onAddUser(enteredName, enteredUserAge);
+        nameInputRef.current.value = '';
+        ageInputRef.current.value = '';
+
     };
-
-
-
-
-    const usernameChangeHandler = (event) => {
-        setEnteredUsername(event.target.value);
-    }
-
-
-
-
-
-
-    const ageChangeHandler = (event) => {
-        setEnteredAge(event.target.value);
-    }
 
 
 
@@ -70,19 +56,15 @@ const AddUser = (props) => {
     }
 
 
-
-
-
-
     return (
         <Wrapper>
             {error && <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler} />}
             <Card className={classes.input}>
                 <form onSubmit={addUserHandler}>
                     <label htmlFor='username'>Username</label>
-                    <input id='username' type="text" onChange={usernameChangeHandler} value={enteredUsername}></input>
+                    <input ref={nameInputRef} id='username' type="text" ></input>
                     <label htmlFor='age'>Age (Years)</label>
-                    <input id='age' type="number" onChange={ageChangeHandler} value={enteredAge}></input>
+                    <input ref={ageInputRef} id='age' type="number" ></input>
                     <Button type='submit'>Add User</Button>
                 </form>
             </Card>
