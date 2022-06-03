@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Card from '../UI/Card';
 import classes from './AddUser.module.css';
 import Button from '../UI/Button';
@@ -6,6 +6,10 @@ import ErrorModal from '../UI/ErrorModal';
 import Wrapper from '../Helpers/Wrapper';
 
 const AddUser = (props) => {
+    const nameInputRef = useRef();//its only usable inside of our functional component
+    const ageInputRef = useRef();//undefined iza fadye ()
+
+    //it retun an array of object with a "cuurent " property
 
     const [enteredUsername, setEnteredUsername] = useState("");
     const [enteredAge, setEnteredAge] = useState("");
@@ -43,6 +47,8 @@ const AddUser = (props) => {
     };
 
 
+
+
     const usernameChangeHandler = (event) => {
         setEnteredUsername(event.target.value);
     }
@@ -50,9 +56,14 @@ const AddUser = (props) => {
 
 
 
+
+
     const ageChangeHandler = (event) => {
         setEnteredAge(event.target.value);
     }
+
+
+
 
     const errorHandler = () => {
         setError(null);// null is treated as a falsy value
