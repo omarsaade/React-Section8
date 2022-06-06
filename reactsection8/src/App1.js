@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import AddUser from './components/Users/AddUser';
-import UsersList from './components/Users/UsersList';
+import AddUser from './components1/Users/AddUser';
+import UsersList from './components1/Users/UsersList';
 
 
 
