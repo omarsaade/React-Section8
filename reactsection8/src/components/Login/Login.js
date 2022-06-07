@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -11,22 +11,46 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();//onblur true 
   const [formIsValid, setFormIsValid] = useState(false); // true
 
+  useEffect(() => {
+    console.log('EFFECT RUNNING');
+
+    return () => {
+      console.log('EFFECT CLEANUP');
+    }
+  }, []);
+
+
+
+
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("2 checking for validity!");
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 1000);
+
+    return () => {
+      console.log('1 Cleanup');
+      clearTimeout(identifier);
+    };
+
+  }, [enteredEmail, enteredPassword]);
+
+
+
+
+
+
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value); //bt7et email
-
-    setFormIsValid(
-      event.target.value.includes('@') && enteredPassword.trim().length > 6  //true and true
-    );
   };
 
 
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);//bt7et password
-
-    setFormIsValid(
-      event.target.value.trim().length > 6 && enteredEmail.includes('@')   // true and true
-    );
   };
 
 

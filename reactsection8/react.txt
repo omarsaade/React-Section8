@@ -192,3 +192,44 @@ And then it will not run in the further renders of the same functional Component
 will run for the initial render as well as when the render happen due to change in dependencies mentioned in the dependency array...
 
 ====================================================================================
+                                /App/
+                                
+
+
+MainHeader                            Login                      Home 
+Text:ATypical page //2               form login //2          <h1>welcome back</h1> //1 true 
+navigation:me5fye //1 true
+
+1- Atypical page and login form 
+2- bta3mul login - iza kelshi mnih.. 3 true + (enteredPassword and enteredEmail is sent
+3an tari2 props.onlogin()
+
+lama tef2os login btenba3at props.disabled // true or false
+
+
+4-Main header : (isLoggedIn = false) (onlogout = false ) =>  navigation 
+Home.js : fadyehhh
+
+
+=============================
+email
+true 
+password
+true
+true
+
+disabled : false
+==========
+btsir setIsLoggedIn : true
+
+=================================================================================================
+
+
+
+
+
+
+
+
+
+
