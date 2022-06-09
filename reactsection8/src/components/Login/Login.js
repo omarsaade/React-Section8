@@ -20,12 +20,19 @@ const Login = (props) => {
   }, []);
 
 
-
+  // Because now this function here is executed by react
+  // and it is executed after important,
+  //     after every component re - evaluation.
+  // So whenever this component function ran thereafter,
+  //     this will run.
+  // And if you then update the state in here
+  // the component will run again.
+  //
 
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      console.log("2 checking for validity!");
+      console.log("checking for validity!");
       setFormIsValid(
         enteredEmail.includes('@') && enteredPassword.trim().length > 6
       );
