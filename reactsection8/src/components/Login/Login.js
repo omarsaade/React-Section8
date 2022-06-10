@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -9,76 +9,50 @@ const Login = (props) => {
   const [emailIsValid, setEmailIsValid] = useState(); //onblur true 
   const [enteredPassword, setEnteredPassword] = useState('');//password
   const [passwordIsValid, setPasswordIsValid] = useState();//onblur true 
-  const [formIsValid, setFormIsValid] = useState(false); // true
-
-  useEffect(() => {
-    console.log('EFFECT RUNNING');
-
-    return () => {
-      console.log('EFFECT CLEANUP');
-    }
-  }, []);
-
-
-  // Because now this function here is executed by react
-  // and it is executed after important,
-  //     after every component re - evaluation.
-  // So whenever this component function ran thereafter,
-  //     this will run.
-  // And if you then update the state in here
-  // the component will run again.
-  //
-
-
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      console.log("checking for validity!");
-      setFormIsValid(
-        enteredEmail.includes('@') && enteredPassword.trim().length > 6
-      );
-    }, 1000);
-
-    return () => {
-      console.log('1 Cleanup');
-      clearTimeout(identifier);
-    };
-
-  }, [enteredEmail, enteredPassword]);
-
-
+  const [formIsValid, setFormIsValid] = useState(false); // true form validation
 
 
 
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value); //bt7et email
+
+    setFormIsValid(
+      event.target.value.includes('@') && enteredPassword.trim().length > 6
+    );
+
   };
+
 
 
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);//bt7et password
+
+    setFormIsValid(
+      enteredEmail.includes('@') && event.target.value.trim().length > 6
+    );
   };
 
 
 
 
-  //onBlur
-  //check on the email
+
   // The onblur event occurs when an object loses focus.
   const validateEmailHandler = () => {
     setEmailIsValid(enteredEmail.includes('@')); //b3at el email
   };
 
 
-  //check length of the password
-  //password
+
   const validatePasswordHandler = () => {
     setPasswordIsValid(enteredPassword.trim().length > 6);
   };
 
 
-  //awalan prevent default / send Password and email
+
+
+
   const submitHandler = (event) => {
     event.preventDefault();
     props.onLogin(enteredEmail, enteredPassword);
