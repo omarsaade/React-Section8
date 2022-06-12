@@ -5,25 +5,24 @@ import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
 
 
-//function reducer
+// function reducer 1
 const emailReducer = (state, action) => {
-  // console.log(state); // {value: 'omar111saadeh@hotmail.com', isValid: true}
   if (action.type === 'USER_INPUT') {
-    // {value : omarsaadeh11@gmail.com , isValid: true}
     return { value: action.val, isValid: action.val.includes('@') };
 
   }
 
   if (action.type === 'INPUT_BLUR') {
-    // {value : omarsaadeh11@gmail.com , isValid: true}
     return { value: state.value, isValid: state.value.includes('@') };
   }
 
   return { value: '', isValid: false };
 }
 
-////////////////////////////////////////////////////////////////////
 
+
+////////////////////////////////////////
+//function reducer 2
 const passwordReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
     return { value: action.val, isValid: action.val.trim().length > 6 };
@@ -71,9 +70,11 @@ const Login = (props) => {
 
 
 
+
   //small change
   const passwordChangeHandler = (event) => {
     dispatchPassword({ type: 'USER_INPUT', val: event.target.value });
+
     setFormIsValid(
       emailState.isValid && event.target.value.trim().length > 6
     );
