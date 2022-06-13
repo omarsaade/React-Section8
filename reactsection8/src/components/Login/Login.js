@@ -55,17 +55,39 @@ const Login = (props) => {
     isValid: null,
   });
 
+  //object descructuring syntax
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
+
+  //const isValid = emailState.isValid;
+
+
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("checking form validity!"); //3 first , second    //3
+      setFormIsValid(
+        emailIsValid && passwordIsValid
+      );
+    }, 1000);
+
+    return () => {
+      console.log('CLEANUP');//2  fisrt  , second    //1
+      clearTimeout(identifier);
+    };
+
+  }, [emailIsValid, passwordIsValid]);
+
+
+
+
 
 
 
   // lama tektob
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: 'USER_INPUT', val: event.target.value });
-    // console.log(event.target.value);
 
-    setFormIsValid(
-      event.target.value.includes('@') && passwordState.isValid
-    );
   };
 
 
@@ -75,9 +97,6 @@ const Login = (props) => {
   const passwordChangeHandler = (event) => {
     dispatchPassword({ type: 'USER_INPUT', val: event.target.value });
 
-    setFormIsValid(
-      emailState.isValid && event.target.value.trim().length > 6
-    );
   };
 
 
