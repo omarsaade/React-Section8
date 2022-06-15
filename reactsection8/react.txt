@@ -336,8 +336,232 @@ const Login = (props) => {
 export default Login;
 
 ================================
+App.js
+
+import React, { useState, useEffect } from 'react';
+
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import MainHeader from './components/MainHeader/MainHeader';
 
 
+
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+
+    if (storedUserLoggedInInformation === '1') {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+
+
+  const loginHandler = (email, password) => {
+  
+    localStorage.setItem('isLoggedIn', '1');
+    setIsLoggedIn(true);
+  };
+
+
+
+
+  const logoutHandler = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+  };
+
+
+
+  return (
+    <>
+         <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main>
+    </>
+  );
+}
+
+
+
+export default App;
+
+====================================================
+Navigation.js
+
+import React from 'react';
+import classes from './Navigation.module.css';
+
+const Navigation = (props) => {
+  return (
+        <nav className={classes.nav}>
+          <ul>
+            {props.isLoggedIn && (
+              <li>
+                <a href="/">Users</a>
+              </li>
+            )}
+            {props.isLoggedIn && (
+              <li>
+                <a href="/">Admin</a>
+              </li>
+            )}
+            {props.isLoggedIn && (
+              <li>
+                <button >Logout</button>
+              </li>
+            )}
+          </ul>
+
+        </nav>  
+  );
+};
+
+export default Navigation;
+
+==================================================================================
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+First Method of useContext()
+App.js
+
+
+import React, { useState, useEffect } from 'react';
+
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import MainHeader from './components/MainHeader/MainHeader';
+import AuthContext from './store/auth-context';
+
+
+
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+
+    if (storedUserLoggedInInformation === '1') {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+
+
+  const loginHandler = (email, password) => {
+    // We should of course check email and password
+    // But it's just a dummy/ demo anyways
+    localStorage.setItem('isLoggedIn', '1');
+    setIsLoggedIn(true);
+  };
+
+
+
+
+  const logoutHandler = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+  };
+
+
+  /*  AuthContext.Provider : Auth-Context provider is a component
+  we can use in our JSX code, and we can wrap it around other 
+  components and those other components and all their descendant components.  */
+
+  return (
+
+    <AuthContext.Provider value={{ isLoggedIn: isLoggedIn }}>
+
+      <MainHeader onLogout={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main>
+
+    </AuthContext.Provider>
+  );
+}
+
+
+
+export default App;
+
+
+=================================================
+
+Navigation.js
+
+import React from 'react';
+import AuthContext from '../../store/auth-context';
+import classes from './Navigation.module.css';
+
+const Navigation = (props) => {
+  return (
+    <AuthContext.Consumer>
+      {(ctx) => {
+        return (<nav className={classes.nav}>
+          <ul>
+            {ctx.isLoggedIn && (
+              <li>
+                <a href="/">Users</a>
+              </li>
+            )}
+            {ctx.isLoggedIn && (
+              <li>
+                <a href="/">Admin</a>
+              </li>
+            )}
+            {ctx.isLoggedIn && (
+              <li>
+                <button onClick={props.onLogout} >Logout</button>
+              </li>
+            )}
+          </ul>
+
+        </nav>)
+
+      }}
+
+    </AuthContext.Consumer>
+  );
+};
+
+export default Navigation;
+
+
+===================================
+auth-context.js
+
+import React from 'react';
+
+//AuthContext is ana object that contain a component
+const AuthContext = React.createContext({
+    isLoggedIn: false //default value
+});
+
+export default AuthContext;
+
+===================================
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
