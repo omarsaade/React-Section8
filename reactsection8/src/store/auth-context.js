@@ -1,3 +1,5 @@
+//Provider
+
 import React, { useState, useEffect } from 'react';
 
 //AuthContext is an object that contain a component
@@ -10,6 +12,8 @@ const AuthContext = React.createContext({
 
 
 
+//This IS A Separate Context management Component Now
+//This IS A Separate Context management Component Now
 
 
 export const AuthContextProvider = (props) => { //named export
@@ -44,8 +48,7 @@ export const AuthContextProvider = (props) => { //named export
 
 
 
-    return <AuthContext.Provider
-        value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler, onLogin: loginHandler }}>
+    return <AuthContext.Provider value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler, onLogin: loginHandler }}>
         {props.children}
     </AuthContext.Provider >
 
