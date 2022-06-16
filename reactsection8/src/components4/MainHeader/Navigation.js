@@ -6,7 +6,6 @@ const Navigation = () => {
 
   const ctx = useContext(AuthContext);
 
-
   return (
     <nav className={classes.nav}>
       <ul>
@@ -24,7 +23,7 @@ const Navigation = () => {
           <li>
             {/* iza ma katabna el default value bel auth-context malah ta3mul
             suggestion lama tef2os ctx. */}
-            <button onClick={ctx.onLogout}>Logout</button>
+            <button onClick={ctx.onLogout} >Logout</button>
           </li>
         )}
       </ul>
