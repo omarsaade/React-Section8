@@ -10,7 +10,9 @@ const Input = React.forwardRef((props, ref) => {
         inputRef.current.focus();
     };
 
+
     useImperativeHandle(ref, () => {
+        //btarje3 object fia function for example esma focus , btshagel function esma activate
         return {
             focus: activate,
         };
@@ -31,5 +33,6 @@ const Input = React.forwardRef((props, ref) => {
         </div>
     )
 });
+
 
 export default Input;

@@ -1,4 +1,20 @@
+
+Now we will create a project from 0
+=
+==
+===
+====
+1-  npx create-react-app learn-react 
+2- cd learn-react
+3- npm start
+
+
+////////////////////////////////////////////////////
+
+
+
 beforee..
+
 
 import React, { useState, useRef } from 'react';
 import Card from '../UI/Card';
